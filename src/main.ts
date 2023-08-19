@@ -1,16 +1,20 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import * as github from '@actions/github'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    const devBranch = core.getInput('dev_branch')
+    const mainBranch = core.getInput('main_branch')
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const pullRequestPayload = github.context.payload.pull_request
+    if (!pullRequestPayload) return
 
-    core.setOutput('time', new Date().toTimeString())
+    pullRequestPayload.number
+
+    console.log(github.context) // eslint-disable-line no-console
+    console.log(pullRequestPayload) // eslint-disable-line no-console
+    console.log(devBranch, mainBranch) // eslint-disable-line no-console
+    core.setFailed(new Error('an error'))
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
