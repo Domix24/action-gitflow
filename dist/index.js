@@ -84,6 +84,7 @@ function run() {
                 return;
             }
             try {
+                core.info('Auto-Merging...');
                 yield octokit.rest.repos.merge({
                     base: devBranch,
                     head: pullData.head.ref,
@@ -94,7 +95,7 @@ function run() {
                 core.info('Auto-Merging successful.');
             }
             catch (error) {
-                core.error('Error while Auto-Merging.');
+                core.info('Error while Auto-Merging.');
             }
             const { data: latestRelease } = yield octokit.rest.repos
                 .getLatestRelease({
