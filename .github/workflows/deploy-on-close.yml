@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
-        uses: domix24/action-gitflow@v0.0.1
+        uses: domix24/action-gitflow@7bb0d20f9917e098f38645fa4d61d6e2718424fd
         with:
           dev_branch: 'develop'
           main_branch: 'main'
