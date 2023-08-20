@@ -6,7 +6,6 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 
 "use strict";
 
-/* eslint no-console: "warn" -- Only for debug purposes */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -132,7 +131,6 @@ function run() {
             core.info(`Release ${release.tag_name} created.`);
         }
         catch (error) {
-            console.log(error);
             if (error instanceof Error)
                 core.setFailed(error.message);
         }
