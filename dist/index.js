@@ -84,6 +84,7 @@ function run() {
                 return;
             }
             try {
+                core.info('Auto-Merging...');
                 yield octokit.rest.repos.merge({
                     base: devBranch,
                     head: pullData.head.ref,
@@ -94,7 +95,16 @@ function run() {
                 core.info('Auto-Merging successful.');
             }
             catch (error) {
-                core.error('Error while Auto-Merging.');
+                core.info('Error while Auto-Merging.');
+                const { data: autoMergeData } = yield octokit.rest.pulls.create({
+                    base: devBranch,
+                    head: pullData.head.ref,
+                    owner: github.context.repo.owner,
+                    repo: github.context.repo.repo,
+                    title: `Auto-Merge ${pullData.head.ref} into ${devBranch}`
+                });
+                core.info(`PR #${autoMergeData.number} created to merge ${autoMergeData.head.ref} into ${devBranch}`);
+                core.notice(`Look PR #${autoMergeData.number}`);
             }
             const { data: latestRelease } = yield octokit.rest.repos
                 .getLatestRelease({
