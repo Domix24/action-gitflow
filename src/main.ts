@@ -63,8 +63,15 @@ async function run(): Promise<void> {
       core.info('Auto-Merging successful.')
     } catch (error) {
       core.info('Error while Auto-Merging.')
-      console.error(error)
-      throw new Error('ending')
+      const {data: pullxData} = await octokit.rest.pulls.create({
+        base: devBranch,
+        head: pullData.head.ref,
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo
+      })
+      core.info(
+        `PR ${pullxData.number} created to merge ${pullData.head.ref} into ${devBranch}`
+      )
     }
 
     const {data: latestRelease} = await octokit.rest.repos
