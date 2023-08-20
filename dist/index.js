@@ -6,6 +6,7 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 
 "use strict";
 
+/* eslint no-console: "warn" -- Only for debug purposes */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -96,6 +97,8 @@ function run() {
             }
             catch (error) {
                 core.info('Error while Auto-Merging.');
+                console.error(error);
+                throw new Error('ending');
             }
             const { data: latestRelease } = yield octokit.rest.repos
                 .getLatestRelease({

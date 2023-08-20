@@ -1,3 +1,5 @@
+/* eslint no-console: "warn" -- Only for debug purposes */
+
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
@@ -61,6 +63,8 @@ async function run(): Promise<void> {
       core.info('Auto-Merging successful.')
     } catch (error) {
       core.info('Error while Auto-Merging.')
+      console.error(error)
+      throw new Error('ending')
     }
 
     const {data: latestRelease} = await octokit.rest.repos
