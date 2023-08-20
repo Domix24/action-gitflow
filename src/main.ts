@@ -64,24 +64,17 @@ async function run(): Promise<void> {
     } catch (error) {
       core.info('Error while Auto-Merging.')
 
-      const {data: issueData} = await octokit.rest.issues.create({
-        owner: github.context.repo.owner,
-        repo: github.context.repo.repo,
-        title: `Auto-Merge ${pullData.head.ref} into ${devBranch}`,
-        body: `Auto-Merging error, some actions need to be done by a human to continue to merge`
-      })
-      core.info(`Issue #${issueData.number} created`)
-
-      const {data: pullxData} = await octokit.rest.pulls.create({
+      const {data: autoMergeData} = await octokit.rest.pulls.create({
         base: devBranch,
         head: pullData.head.ref,
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
-        issue: issueData.number
+        title: `Auto-Merge ${pullData.head.ref} into ${devBranch}`
       })
       core.info(
-        `PR #${pullxData.number} created to merge ${pullData.head.ref} into ${devBranch}`
+        `PR #${autoMergeData.number} created to merge ${autoMergeData.head.ref} into ${devBranch}`
       )
+      core.notice(`Look PR #${autoMergeData.number}`)
     }
 
     const {data: latestRelease} = await octokit.rest.repos
