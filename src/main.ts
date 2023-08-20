@@ -100,6 +100,7 @@ async function run(): Promise<void> {
     })
     core.info(`Release ${release.tag_name} created.`)
   } catch (error) {
+    console.log(error)
     if (error instanceof Error) core.setFailed(error.message)
   }
 }
