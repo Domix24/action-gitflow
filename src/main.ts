@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
+import {getInputs} from './functions/getInputs'
 
 async function getReleaseType(
   headRef: string
@@ -13,9 +14,8 @@ async function getReleaseType(
 
 async function run(): Promise<void> {
   try {
-    const devBranch = core.getInput('dev_branch')
-    const mainBranch = core.getInput('main_branch')
-    const githubToken = core.getInput('github_token')
+    const {devBranch, githubToken, hotfixPrefix, mainBranch, releasePrefix} =
+      getInputs()
 
     if (!githubToken) throw new Error(`No Token specified.`)
 
