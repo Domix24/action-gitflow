@@ -1,6 +1,70 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 9109:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getInputs = void 0;
+const core = __importStar(__nccwpck_require__(2186));
+const getInputs = () => ({
+    devBranch: core.getInput('dev_branch', { required: true }),
+    mainBranch: core.getInput('main_branch', { required: true }),
+    githubToken: core.getInput('github_token', { required: true }),
+    releasePrefix: core.getInput('release_prefix'),
+    hotfixPrefix: core.getInput('hotfix_prefix')
+});
+exports.getInputs = getInputs;
+
+
+/***/ }),
+
+/***/ 3701:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getReleaseType = void 0;
+const getInputs_1 = __nccwpck_require__(9109);
+const { hotfixPrefix: hPrefix, releasePrefix: rPrefix } = (0, getInputs_1.getInputs)();
+const getReleaseType = headRef => {
+    if (headRef.startsWith(rPrefix))
+        return { type: 'release', version: headRef.substring(rPrefix.length) };
+    else if (headRef.startsWith(hPrefix))
+        return { type: 'hotfix', version: headRef.substring(hPrefix.length) };
+    return undefined;
+};
+exports.getReleaseType = getReleaseType;
+
+
+/***/ }),
+
 /***/ 3109:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -41,30 +105,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
-function getReleaseType(headRef) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (headRef.startsWith('release'))
-            return { type: 'release', version: headRef.substring('release/'.length) };
-        else if (headRef.startsWith('hotfix'))
-            return { type: 'hotfix', version: headRef.substring('hotfix/'.length) };
-        return undefined;
-    });
-}
+const getInputs_1 = __nccwpck_require__(9109);
+const getReleaseType_1 = __nccwpck_require__(3701);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const devBranch = core.getInput('dev_branch');
-            const mainBranch = core.getInput('main_branch');
-            const githubToken = core.getInput('github_token');
+            const { devBranch, githubToken, mainBranch } = (0, getInputs_1.getInputs)();
             if (!githubToken)
                 throw new Error(`No Token specified.`);
             const octokit = github.getOctokit(githubToken);
             const pullRequestPayload = github.context.payload.pull_request;
-            if (!pullRequestPayload) {
-                core.info(`Not a PR.`);
-                return;
-            }
-            if (!pullRequestPayload.merged) {
+            if (!(pullRequestPayload === null || pullRequestPayload === void 0 ? void 0 : pullRequestPayload.merged)) {
                 core.info(`PR is not merged.`);
                 return;
             }
@@ -78,7 +129,7 @@ function run() {
                 pull_number: pullNumber,
                 repo: github.context.repo.repo
             });
-            const releaseType = yield getReleaseType(pullData.head.ref);
+            const releaseType = (0, getReleaseType_1.getReleaseType)(pullData.head.ref);
             if (!releaseType) {
                 core.info(`Not a valid RT.`);
                 return;
@@ -6563,6 +6614,7 @@ exports.Headers = Headers;
 exports.Request = Request;
 exports.Response = Response;
 exports.FetchError = FetchError;
+exports.AbortError = AbortError;
 
 
 /***/ }),

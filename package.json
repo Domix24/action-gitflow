@@ -1,6 +1,6 @@
 {
   "name": "action-gitflow",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "description": "Implementation of Gitflow with Github Actions (release/hotfix)",
   "main": "lib/main.js",
