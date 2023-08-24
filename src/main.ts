@@ -1,32 +1,18 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-
-async function getReleaseType(
-  headRef: string
-): Promise<{type: 'release' | 'hotfix'; version: string} | undefined> {
-  if (headRef.startsWith('release'))
-    return {type: 'release', version: headRef.substring('release/'.length)}
-  else if (headRef.startsWith('hotfix'))
-    return {type: 'hotfix', version: headRef.substring('hotfix/'.length)}
-  return undefined
-}
+import {getInputs} from './functions/getInputs'
+import {getReleaseType} from './functions/getReleaseType'
 
 async function run(): Promise<void> {
   try {
-    const devBranch = core.getInput('dev_branch')
-    const mainBranch = core.getInput('main_branch')
-    const githubToken = core.getInput('github_token')
+    const {devBranch, githubToken, mainBranch} = getInputs()
 
     if (!githubToken) throw new Error(`No Token specified.`)
 
     const octokit = github.getOctokit(githubToken)
 
     const pullRequestPayload = github.context.payload.pull_request
-    if (!pullRequestPayload) {
-      core.info(`Not a PR.`)
-      return
-    }
-    if (!pullRequestPayload.merged) {
+    if (!pullRequestPayload?.merged) {
       core.info(`PR is not merged.`)
       return
     }
@@ -43,7 +29,7 @@ async function run(): Promise<void> {
       repo: github.context.repo.repo
     })
 
-    const releaseType = await getReleaseType(pullData.head.ref)
+    const releaseType = getReleaseType(pullData.head.ref)
     if (!releaseType) {
       core.info(`Not a valid RT.`)
       return
