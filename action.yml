@@ -5,14 +5,18 @@ inputs:
   dev_branch:
     required: true
     description: 'name of dev branch'
-    default: 'develop'
   main_branch:
     required: true
     description: 'name of main branch'
-    default: 'main'
   github_token:
     required: true
     description: 'github token'
+  release_prefix:
+    description: 'prefix of the release branch'
+    default: 'release/'
+  hotfix_prefix:
+    description: 'prefix of the hotfix branch'
+    default: 'hotfix/'
 runs:
   using: 'node20'
   main: 'dist/index.js'
