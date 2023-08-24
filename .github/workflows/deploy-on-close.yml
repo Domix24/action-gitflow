@@ -5,12 +5,14 @@ on:
     branches:
       - main
 
-name: Release Workflows
+name: Release Management
 
 jobs:
-  release_worfkflow:
+  release_management:
+    name: Release Management
     permissions:
       contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,6 +20,6 @@ jobs:
       - name: Build
         uses: domix24/action-gitflow@v0
         with:
-          dev_branch: 'develop'
-          main_branch: 'main'
+          dev_branch: develop
+          main_branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
