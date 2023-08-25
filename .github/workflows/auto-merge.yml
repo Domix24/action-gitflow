@@ -5,7 +5,7 @@ on:
 
 jobs:
   auto-merge:
-    name: Main Job
+    name: Merge
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
