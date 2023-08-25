@@ -9,7 +9,7 @@ name: Release Management
 
 jobs:
   release_management:
-    name: Release Management
+    name: Release
     permissions:
       contents: write
       pull-requests: write
