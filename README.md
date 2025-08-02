@@ -13,6 +13,9 @@ Implementation of Gitflow with GitHub Actions (release/hotfix)
 [![Release Management](https://github.com/Domix24/action-gitflow/actions/workflows/deploy-on-close.yml/badge.svg)](https://github.com/Domix24/action-gitflow/actions/workflows/deploy-on-close.yml)
 [![Update Version](https://github.com/Domix24/action-gitflow/actions/workflows/update-version.yml/badge.svg)](https://github.com/Domix24/action-gitflow/actions/workflows/update-version.yml)
 
+> [!NOTE]
+> Make sure the action finishes before removing the merged branch.
+
 ## Parameters
 
 ### `dev_branch`
