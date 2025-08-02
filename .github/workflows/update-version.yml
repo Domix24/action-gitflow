@@ -12,7 +12,8 @@ on:
         required: true
         description: The version to use (to)
 
-permissions: read-all
+permissions:
+  contents: write
 
 jobs:
   update-tag:
