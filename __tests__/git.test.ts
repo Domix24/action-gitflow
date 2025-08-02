@@ -1,4 +1,4 @@
-let mockInputs: {[key: string]: string} = {
+const mockInputs: {[key: string]: string} = {
   dev_branch: 'develop',
   main_branch: 'main',
   github_token: '-',
@@ -6,19 +6,20 @@ let mockInputs: {[key: string]: string} = {
   hotfix_prefix: 'hotfix/'
 }
 
-jest.mock('@actions/core', () => ({
+jest.unstable_mockModule('@actions/core', () => ({
   getInput: (x: string): string => mockInputs[x]
 }))
 
-import * as CORE from '@actions/core'
-import {getInputs} from '../src/functions/getInputs'
-import {getReleaseType} from '../src/functions/getReleaseType'
+import {jest} from '@jest/globals'
+const {getInputs} = await import('../src/functions/getInputs')
+const CORE = await import('@actions/core')
+const {getReleaseType} = await import('../src/functions/getReleaseType')
 
 describe('not my first block', () => {
   test('normal test', () => {
     expect(CORE.getInput('github_token')).toBe('-')
   })
-  test('test getinputs', () => {
+  test('getinputs', () => {
     const saveMe = getInputs()
     expect(saveMe.devBranch).toBe('develop')
     expect(saveMe.mainBranch).toBe('main')
@@ -34,27 +35,27 @@ describe('not my first block', () => {
     })
 
     test('parsing release/1.0.0', () => {
-      let drink = jest.fn(() => getReleaseType('release/1.0.0'))
+      const drink = jest.fn(() => getReleaseType('release/1.0.0'))
       drink()
-      expect(drink).toReturnWith({
+      expect(drink).toHaveReturnedWith({
         type: 'release',
         version: '1.0.0'
       })
     })
 
     test('parsing hotfix/1.0.0', () => {
-      let drink = jest.fn(() => getReleaseType('hotfix/1.0.0'))
+      const drink = jest.fn(() => getReleaseType('hotfix/1.0.0'))
       drink()
-      expect(drink).toReturnWith({
+      expect(drink).toHaveReturnedWith({
         type: 'hotfix',
         version: '1.0.0'
       })
     })
 
     test('parsing hotfix/', () => {
-      let drink = jest.fn(() => getReleaseType('hotfix/'))
+      const drink = jest.fn(() => getReleaseType('hotfix/'))
       drink()
-      expect(drink).toReturnWith({
+      expect(drink).toHaveReturnedWith({
         type: 'hotfix',
         version: ''
       })
