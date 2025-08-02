@@ -7,6 +7,8 @@ on:
 
 name: Release Management
 
+permissions: read-all
+
 jobs:
   release_management:
     name: Release
