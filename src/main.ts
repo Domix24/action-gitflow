@@ -45,7 +45,7 @@ async function run(): Promise<void> {
         commit_message: `Merge ${pullData.head.ref} into ${devBranch}`
       })
       core.info('Auto-Merging successful.')
-    } catch (error) {
+    } catch {
       core.info('Error while Auto-Merging.')
 
       const {data: autoMergeData} = await octokit.rest.pulls.create({
@@ -66,7 +66,7 @@ async function run(): Promise<void> {
         owner: github.context.repo.owner,
         repo: github.context.repo.repo
       })
-      .catch(() => ({data: null})) // eslint-disable-line github/no-then
+      .catch(() => ({data: null}))
 
     const {data: relNotes} = await octokit.rest.repos.generateReleaseNotes({
       owner: github.context.repo.owner,
