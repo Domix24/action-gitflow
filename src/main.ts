@@ -3,7 +3,7 @@ import * as github from '@actions/github'
 import {getInputs} from './functions/getInputs.js'
 import {getReleaseType} from './functions/getReleaseType.js'
 
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   try {
     const {devBranch, githubToken, mainBranch} = getInputs()
 
@@ -90,5 +90,3 @@ async function run(): Promise<void> {
     if (error instanceof Error) core.setFailed(error.message)
   }
 }
-
-run()
