@@ -1,5 +1,5 @@
 name: 'Gitflow Workflow (release/hotfix)'
-description: 'Implementation of Gitflow with Github Actions (release/hotfix)'
+description: 'Implementation of Gitflow with GitHub Actions (release/hotfix)'
 author: 'domix24'
 inputs:
   dev_branch:
