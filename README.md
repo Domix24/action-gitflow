@@ -1,5 +1,6 @@
 # action-gitflow v0 - Release Management
-Implementation of Gitflow with Github Actions (release/hotfix)
+
+Implementation of Gitflow with GitHub Actions (release/hotfix)
 
 [![build-test](https://github.com/Domix24/action-gitflow/actions/workflows/test.yml/badge.svg)](https://github.com/Domix24/action-gitflow/actions/workflows/test.yml)
 [![Check Transpiled JavaScript](https://github.com/Domix24/action-gitflow/actions/workflows/check-dist.yml/badge.svg)](https://github.com/Domix24/action-gitflow/actions/workflows/check-dist.yml)
