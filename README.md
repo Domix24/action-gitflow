@@ -19,7 +19,7 @@
 ### `github_token`
 
 - **required** ⚠️
-- github token
+- GitHub token
 - needs to be `${{ secrets.GITHUB_TOKEN }}` ⚠️
 
 ### `release_prefix`
