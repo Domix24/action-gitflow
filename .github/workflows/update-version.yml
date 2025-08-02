@@ -1,6 +1,7 @@
 name: Update Version
 run-name: Move ${{ github.event.inputs.version }} to ${{ github.event.inputs.target }}
 
+# checkov:skip=CKV_GHA_7:Inputs are required for manual triggering of this workflow
 on:
   workflow_dispatch:
     inputs:
@@ -10,6 +11,8 @@ on:
       version:
         required: true
         description: The version to use (to)
+
+permissions: read-all
 
 jobs:
   update-tag:

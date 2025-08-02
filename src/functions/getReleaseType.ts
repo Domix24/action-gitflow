@@ -1,4 +1,4 @@
-import {getInputs} from './getInputs'
+import {getInputs} from './getInputs.js'
 
 const {hotfixPrefix: hPrefix, releasePrefix: rPrefix} = getInputs()
 

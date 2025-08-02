@@ -7,27 +7,33 @@
 ## Parameters
 
 ### `dev_branch`
-* _**required**_ ⚠️
-* Name of the dev branch
+
+- _**required**_ ⚠️
+- Name of the dev branch
 
 ### `main_branch`
-* **required** ⚠️
-* Name of the main branch
+
+- **required** ⚠️
+- Name of the main branch
 
 ### `github_token`
-* **required** ⚠️
-* github token
-* needs to be `${{ secrets.GITHUB_TOKEN }}` ⚠️
+
+- **required** ⚠️
+- GitHub token
+- needs to be `${{ secrets.GITHUB_TOKEN }}` ⚠️
 
 ### `release_prefix`
-* default to `release/`
-* prefix of the release branch
+
+- default to `release/`
+- prefix of the release branch
 
 ### `hotfix_prefix`
-* default to `hotfix/`
-* prefix of the hotfix branch
+
+- default to `hotfix/`
+- prefix of the hotfix branch
 
 ## Example file
+
 ```yaml
 on:
   pull_request:

@@ -1,9 +1,9 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import {getInputs} from './functions/getInputs'
-import {getReleaseType} from './functions/getReleaseType'
+import {getInputs} from './functions/getInputs.js'
+import {getReleaseType} from './functions/getReleaseType.js'
 
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   try {
     const {devBranch, githubToken, mainBranch} = getInputs()
 
@@ -45,7 +45,7 @@ async function run(): Promise<void> {
         commit_message: `Merge ${pullData.head.ref} into ${devBranch}`
       })
       core.info('Auto-Merging successful.')
-    } catch (error) {
+    } catch {
       core.info('Error while Auto-Merging.')
 
       const {data: autoMergeData} = await octokit.rest.pulls.create({
@@ -66,7 +66,7 @@ async function run(): Promise<void> {
         owner: github.context.repo.owner,
         repo: github.context.repo.repo
       })
-      .catch(() => ({data: null})) // eslint-disable-line github/no-then
+      .catch(() => ({data: null}))
 
     const {data: relNotes} = await octokit.rest.repos.generateReleaseNotes({
       owner: github.context.repo.owner,
@@ -90,5 +90,3 @@ async function run(): Promise<void> {
     if (error instanceof Error) core.setFailed(error.message)
   }
 }
-
-run()
