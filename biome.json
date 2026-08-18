@@ -1,6 +1,12 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
-  "files": {
-    "maxSize": 1073741824
+  "$schema": "https://biomejs.dev/schemas/2.0.5/schema.json",
+  "formatter": {
+    "enabled": false
+  },
+  "linter": {
+    "enabled": false
+  },
+  "assist": {
+    "enabled": false
   }
 }
