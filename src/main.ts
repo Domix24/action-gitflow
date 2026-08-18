@@ -19,7 +19,7 @@ export async function run(): Promise<void> {
 
     const pullNumber = pullRequestPayload.number
     if (!pullNumber) {
-      core.info(`PR doesnt have a number (${pullNumber}).`)
+      core.info(`PR does not have a number (${pullNumber}).`)
       return
     }
 

@@ -33729,7 +33729,7 @@ async function run() {
         }
         const pullNumber = pullRequestPayload.number;
         if (!pullNumber) {
-            info(`PR doesnt have a number (${pullNumber}).`);
+            info(`PR does not have a number (${pullNumber}).`);
             return;
         }
         const { data: pullData } = await octokit.rest.pulls.get({
