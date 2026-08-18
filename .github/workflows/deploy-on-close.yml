@@ -18,9 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a
+        with:
+          persist-credentials: false
       - name: Build
-        uses: domix24/action-gitflow@v0
+        uses: domix24/action-gitflow@bf2fd8a2ceb7adbabf14f8da76c4f720b2db168a
         with:
           dev_branch: develop
           main_branch: main
