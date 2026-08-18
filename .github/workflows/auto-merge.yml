@@ -3,15 +3,15 @@ name: Dependabot Auto-Merge
 on:
   pull_request:
 
-permissions: read-all
-
 jobs:
   auto-merge:
     name: Merge
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      pull-requests: write
+      contents: write
     steps:
-      - uses: fastify/github-action-merge-dependabot@main
+      - uses: fastify/github-action-merge-dependabot@d0104eb205916dffaf8fe7c8e04a95371140bd81
         with:
           target: any
           github-token: ${{ secrets.GITHUB_TOKEN }}
