@@ -33,7 +33,7 @@ jobs:
 
       - name: Setup Node.js
         id: setup-node
-        uses: actions/setup-node@3d7870f6218881292d183093179901ae8dc2ef85
+        uses: actions/setup-node@ae0d4ed08881f17d1511386f5be3e62356acd4a6
         with:
           node-version-file: .node-version
           cache: npm
