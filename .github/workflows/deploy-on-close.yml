@@ -22,7 +22,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Build
-        uses: domix24/action-gitflow@bf2fd8a2ceb7adbabf14f8da76c4f720b2db168a
+        uses: domix24/action-gitflow@945ce6c2c663f2ea96ba87ea93d7022c8fa53e66
         with:
           dev_branch: develop
           main_branch: main
